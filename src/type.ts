@@ -1,16 +1,38 @@
-interface Traceback {
+export interface PythonLog {
+    entries: LogEntry[];
+}
+
+export type LogEntry =
+    | OutputLine
+    | TracebackChain;
+
+export interface OutputLine {
+    kind: "output";
+    text: string;
+}
+
+export interface TracebackChain {
+    kind: "traceback";
+    blocks: TracebackBlock[];
+}
+
+export interface TracebackBlock {
     frames: Frame[];
     exception: ExceptionInfo;
 }
 
-interface Frame {
+export interface Frame {
     filename: string;
     line: number;
     function: string;
     source?: string;
 }
 
-interface ExceptionInfo {
+export interface ExceptionInfo {
     type: string;
     message?: string;
 }
+
+export type ExceptionTransition =
+    | "during_handling"
+    | "direct_cause";
