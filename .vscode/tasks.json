@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "pnpm: build",
+            "label": "pnpm build",
             "type": "pnpm",
-            "script": "build",
+            "script": "pnpm run build",
             "group": {
                 "kind": "build",
                 "isDefault": true
