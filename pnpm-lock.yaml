@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      antlr4ts:
+        specifier: 0.5.0-alpha.4
+        version: 0.5.0-alpha.4
     devDependencies:
       '@types/node':
         specifier: ^26.1.1
@@ -23,6 +27,9 @@ importers:
       '@vscode/vsce':
         specifier: ^3.9.2
         version: 3.9.2
+      antlr4ts-cli:
+        specifier: 0.5.0-alpha.4
+        version: 0.5.0-alpha.4
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
@@ -419,6 +426,13 @@ packages:
   ansi-styles@6.2.3:
     resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
     engines: {node: '>=12'}
+
+  antlr4ts-cli@0.5.0-alpha.4:
+    resolution: {integrity: sha512-lVPVBTA2CVHRYILSKilL6Jd4hAumhSZZWA7UbQNQrmaSSj7dPmmYaN4bOmZG79cOy0lS00i4LY68JZZjZMWVrw==}
+    hasBin: true
+
+  antlr4ts@0.5.0-alpha.4:
+    resolution: {integrity: sha512-WPQDt1B74OfPv/IMS2ekXAKkTZIHl88uMetg6q3OTqgFxZ/dxDXI0EWLyZid/1Pe6hTftyg5N7gel5wNAGxXyQ==}
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -2077,6 +2091,10 @@ snapshots:
       color-convert: 2.0.1
 
   ansi-styles@6.2.3: {}
+
+  antlr4ts-cli@0.5.0-alpha.4: {}
+
+  antlr4ts@0.5.0-alpha.4: {}
 
   argparse@2.0.1: {}
 
