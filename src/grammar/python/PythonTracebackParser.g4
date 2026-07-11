@@ -52,7 +52,7 @@ frame
 
 functionName
     : qualifiedName
-    | '<' TEXT '>'
+    | LESSTHAN TEXT GREATERTHAN
     ;
 
 qualifiedName

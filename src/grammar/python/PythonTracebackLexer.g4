@@ -59,3 +59,11 @@ NEWLINE
 WS
     : [ \t]+ -> skip
     ;
+
+LESSTHAN
+    : '<'
+    ;
+
+GREATERTHAN
+    : '>'
+    ;
