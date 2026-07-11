@@ -30,7 +30,8 @@
     "build": "tsc -p .",
     "watch": "tsc -watch",
     "package": "vsce package",
-    "publish": "vsce publish"
+    "publish": "vsce publish",
+    "download:antlr": "curl https://www.antlr.org/download/antlr-4.13.2-complete.jar --output antlr-4.13.2-complete.jar"
   },
   "keywords": [],
   "author": "Maifee Ul Asad<maifeeulasad@gmail.com>",
