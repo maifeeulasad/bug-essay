@@ -2,9 +2,30 @@
   "name": "bug-essay",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "displayName": "Bug Essay",
+  "publisher": "mua",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:bug-essay.hello"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "bug-essay.hello",
+        "title": "Bug Essay: Hello"
+      }
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p .",
+    "watch": "tsc -watch",
+    "package": "vsce package"
   },
   "keywords": [],
   "author": "Maifee Ul Asad<maifeeulasad@gmail.com>",
