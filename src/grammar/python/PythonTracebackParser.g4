@@ -1,40 +1,75 @@
 parser grammar PythonTracebackParser;
 
 options {
-    tokenVocab=PythonTracebackLexer;
+    tokenVocab = PythonTracebackLexer;
 }
 
-traceback
+log
+    : entry* EOF
+    ;
+
+entry
+    : tracebackChain
+    | outputLine
+    ;
+
+outputLine
+    : TEXT NEWLINE
+    ;
+
+tracebackChain
+    : tracebackBlock
+      (
+          transition
+          tracebackBlock
+      )*
+    ;
+
+transition
+    : DURING_HANDLING NEWLINE+
+    | DIRECT_CAUSE NEWLINE+
+    ;
+
+tracebackBlock
     : tracebackHeader
       frame*
       exceptionLine
-      EOF
     ;
 
 tracebackHeader
-    : TRACEBACK NEWLINE
+    : TRACEBACK NEWLINE+
     ;
 
 frame
-    : INDENT
-      FILE
-      STRING
+    : FILE STRING
       COMMA
-      LINE
-      INTEGER
+      LINE NUMBER
       COMMA
-      IN
-      IDENTIFIER
+      IN functionName
       NEWLINE
       sourceLine?
     ;
 
+functionName
+    : qualifiedName
+    | '<' TEXT '>'
+    ;
+
+qualifiedName
+    : IDENTIFIER
+      (
+        DOT IDENTIFIER
+      )*
+    ;
+
 sourceLine
-    : INDENT INDENT TEXT NEWLINE
+    : TEXT NEWLINE
     ;
 
 exceptionLine
-    : IDENTIFIER
-      (COLON TEXT)?
-      NEWLINE?
+    : qualifiedName
+      (
+          COLON TEXT
+      )?
+      NEWLINE*
     ;
