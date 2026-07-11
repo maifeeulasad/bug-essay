@@ -4,6 +4,14 @@ TRACEBACK
     : 'Traceback (most recent call last):'
     ;
 
+DURING_HANDLING
+    : 'During handling of the above exception, another exception occurred:'
+    ;
+
+DIRECT_CAUSE
+    : 'The above exception was the direct cause of the following exception:'
+    ;
+
 FILE
     : 'File'
     ;
@@ -16,38 +24,38 @@ IN
     : 'in'
     ;
 
-COLON
-    : ':'
-    ;
-
 COMMA
     : ','
     ;
 
-INTEGER
-    : [0-9]+
+COLON
+    : ':'
+    ;
+
+DOT
+    : '.'
     ;
 
 STRING
     : '"' (~["\r\n])* '"'
     ;
 
-IDENTIFIER
-    : [A-Za-z_][A-Za-z0-9_.<>-]*
+NUMBER
+    : [0-9]+
     ;
 
-INDENT
-    : '  '
+IDENTIFIER
+    : [a-zA-Z_][a-zA-Z0-9_]*
+    ;
+
+TEXT
+    : ~[\r\n]+
     ;
 
 NEWLINE
     : '\r'? '\n'
     ;
 
-SPACE
+WS
     : [ \t]+ -> skip
-    ;
-
-TEXT
-    : ~[\r\n]+
     ;
