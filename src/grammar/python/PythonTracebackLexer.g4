@@ -1,53 +1,35 @@
 lexer grammar PythonTracebackLexer;
 
 TRACEBACK
-    : 'Traceback (most recent call last):'
+    : 'Traceback (most recent call last):' [ \t]*
     ;
 
 DURING_HANDLING
-    : 'During handling of the above exception, another exception occurred:'
+    : 'During handling of the above exception, another exception occurred:' [ \t]*
     ;
 
 DIRECT_CAUSE
-    : 'The above exception was the direct cause of the following exception:'
+    : 'The above exception was the direct cause of the following exception:' [ \t]*
     ;
 
-FILE
-    : 'File'
+// A whole "File "...", line N, in name" line, captured as one token.
+// This is the key fix: by matching to the end of the line (same as TEXT
+// would), it *ties* with TEXT in length, and since it's declared first,
+// it wins the tie. FILE/STRING/LINE/NUMBER/IN as separate tokens (the
+// original design) could never beat TEXT because they're each shorter
+// than the full line TEXT would swallow.
+FRAME_LINE
+    : [ \t]* 'File "' (~["\r\n])* '", line ' [0-9]+ ', in ' ~[\r\n]*
     ;
 
-LINE
-    : 'line'
+// An exception type (optionally "Type: message"), e.g.
+// "ValueError: bad input" or "urllib.error.HTTPError: HTTP Error 400: ".
+// Same trick: matches to end of line so it ties with, and beats, TEXT.
+EXCEPTION_LINE
+    : [ \t]* [a-zA-Z_][a-zA-Z0-9_]* ('.' [a-zA-Z_][a-zA-Z0-9_]*)* (': ' ~[\r\n]*)?
     ;
 
-IN
-    : 'in'
-    ;
-
-COMMA
-    : ','
-    ;
-
-COLON
-    : ':'
-    ;
-
-DOT
-    : '.'
-    ;
-
-STRING
-    : '"' (~["\r\n])* '"'
-    ;
-
-NUMBER
-    : [0-9]+
-    ;
-
-IDENTIFIER
-    : [a-zA-Z_][a-zA-Z0-9_]*
-    ;
-
+// Catch-all for plain output lines and frame source/caret lines.
 TEXT
     : ~[\r\n]+
     ;
@@ -58,12 +40,4 @@ NEWLINE
 
 WS
     : [ \t]+ -> skip
-    ;
-
-LESSTHAN
-    : '<'
-    ;
-
-GREATERTHAN
-    : '>'
     ;

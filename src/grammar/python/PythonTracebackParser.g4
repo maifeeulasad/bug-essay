@@ -41,35 +41,15 @@ tracebackHeader
     ;
 
 frame
-    : FILE STRING
-      COMMA
-      LINE NUMBER
-      COMMA
-      IN functionName
-      NEWLINE
-      sourceLine?
+    : FRAME_LINE NEWLINE
+      sourceLine*
     ;
 
-functionName
-    : qualifiedName
-    | LESSTHAN TEXT GREATERTHAN
-    ;
-
-qualifiedName
-    : IDENTIFIER
-      (
-        DOT IDENTIFIER
-      )*
-    ;
-
+// Source code line and/or "^^^" caret marker line(s) under a frame.
 sourceLine
     : TEXT NEWLINE
     ;
 
 exceptionLine
-    : qualifiedName
-      (
-          COLON TEXT
-      )?
-      NEWLINE*
+    : EXCEPTION_LINE NEWLINE*
     ;
