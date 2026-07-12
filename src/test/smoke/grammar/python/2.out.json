@@ -1,0 +1,102 @@
+{
+  "entries": [
+    {
+      "kind": "output",
+      "text": "Could not get latest version number, attempting to fall back to latest downloaded version..."
+    },
+    {
+      "kind": "traceback",
+      "blocks": [
+        {
+          "frames": [
+            {
+              "filename": "/home/usr/.local/lib/python3.12/site-packages/antlr4_tool_runner.py",
+              "line": 26,
+              "function": "latest_version",
+              "source": "with urlopen(\"https://central.sonatype.com/solrsearch/select?q=a:antlr4-master+g:org.antlr\",\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 215,
+              "function": "urlopen",
+              "source": "return opener.open(url, data, timeout)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 521,
+              "function": "open",
+              "source": "response = meth(req, response)\n^^^^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 630,
+              "function": "http_response",
+              "source": "response = self.parent.error(\n^^^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 559,
+              "function": "error",
+              "source": "return self._call_chain(*args)\n^^^^^^^^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 492,
+              "function": "_call_chain",
+              "source": "result = func(*args)\n^^^^^^^^^^^"
+            },
+            {
+              "filename": "/usr/lib/python3.12/urllib/request.py",
+              "line": 639,
+              "function": "http_error_default",
+              "source": "raise HTTPError(req.full_url, code, msg, hdrs, fp)"
+            }
+          ],
+          "exception": {
+            "type": "urllib.error.HTTPError",
+            "message": "HTTP Error 400:"
+          }
+        },
+        {
+          "frames": [
+            {
+              "filename": "/home/usr/.local/bin/antlr4",
+              "line": 7,
+              "function": "<module>",
+              "source": "sys.exit(tool())\n^^^^^^"
+            },
+            {
+              "filename": "/home/usr/.local/lib/python3.12/site-packages/antlr4_tool_runner.py",
+              "line": 143,
+              "function": "tool",
+              "source": "run_cli('org.antlr.v4.Tool')"
+            },
+            {
+              "filename": "/home/usr/.local/lib/python3.12/site-packages/antlr4_tool_runner.py",
+              "line": 134,
+              "function": "run_cli",
+              "source": "args, version = process_args()\n^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/home/usr/.local/lib/python3.12/site-packages/antlr4_tool_runner.py",
+              "line": 128,
+              "function": "process_args",
+              "source": "args.version or os.environ.get(\"ANTLR4_TOOLS_ANTLR_VERSION\") or latest_version()\n^^^^^^^^^^^^^^^^"
+            },
+            {
+              "filename": "/home/usr/.local/lib/python3.12/site-packages/antlr4_tool_runner.py",
+              "line": 37,
+              "function": "latest_version",
+              "source": "version_dirs = list(filter(lambda directory: re.match(r\"[0-9]+\\.[0-9]+\\.[0-9]+\", directory), os.listdir(mvn_repo)))\n^^^^^^^^^^^^^^^^^^^^"
+            }
+          ],
+          "exception": {
+            "type": "FileNotFoundError",
+            "message": "[Errno 2] No such file or directory: '/home/usr/.m2/repository/org/antlr/antlr4'"
+          },
+          "causedBy": "during_handling"
+        }
+      ]
+    }
+  ]
+}
