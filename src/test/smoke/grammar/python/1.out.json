@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "kind": "traceback",
+      "blocks": [
+        {
+          "frames": [
+            {
+              "filename": "<stdin>",
+              "line": 1,
+              "function": "<module>"
+            },
+            {
+              "filename": "<stdin>",
+              "line": 2,
+              "function": "foo"
+            },
+            {
+              "filename": "<stdin>",
+              "line": 2,
+              "function": "bar"
+            },
+            {
+              "filename": "<stdin>",
+              "line": 2,
+              "function": "baz "
+            }
+          ],
+          "exception": {
+            "type": "Exception",
+            "message": "Something went wrong!"
+          }
+        }
+      ]
+    }
+  ]
+}
