@@ -1,33 +1,5 @@
-import antlr4, { CharStream } from "antlr4";
 import fs from "fs";
-
-import PythonTracebackLexer from "./grammar/python/PythonTracebackLexer";
-import PythonTracebackParser from "./grammar/python/PythonTracebackParser";
-
-export function parseTraceback(text: string) {
-    const chars = new antlr4.InputStream(text);
-
-    const lexer = new PythonTracebackLexer(chars as CharStream);
-
-    const tokens = new antlr4.CommonTokenStream(lexer);
-
-    const parser = new PythonTracebackParser(tokens);
-
-    parser.buildParseTrees = true;
-
-    const tree = parser.log();
-
-    return {
-        tree,
-        parser,
-        lexer,
-        tokens,
-    };
-}
-
-// path for in file
-// src/test/smoke/grammar/python/1.in
-// src/test/smoke/grammar/python/2.in
+import { parseTraceback } from "./parseTraceback";
 
 const files = [
     "src/test/smoke/grammar/python/1.in",
@@ -38,28 +10,23 @@ function readFile(filePath: string): string {
     return fs.readFileSync(filePath, "utf-8");
 }
 
-function testParseTraceback() {
+function main() {
     for (const file of files) {
         const text = readFile(file);
-        const { tree, parser, lexer, tokens } = parseTraceback(text);
+        const result = parseTraceback(text);
+        const { errors, ...log } = result;
 
-        // console.log(`Parsed file: ${file}`);
-        // console.log(`Parse tree: ${tree.toStringTree(parser.ruleNames, parser)}`);
-        // console.log(`Tokens: ${tokens.tokens.map(token => token.text).join(", ")}`);
+        console.log(`Parsed file: ${file}`);
+        // if (errors.length > 0) {
+        //     console.log("Parser errors:", errors);
+        // }
+        // console.log(JSON.stringify(log, null, 2));
+        // console.log("---------------");
 
-        tokens.fill();
-
-        for (const token of tokens.tokens) {
-            console.log(
-                `${token.line}:${token.column}`,
-                parser.symbolicNames[token.type],
-                JSON.stringify(token.text)
-            );
-        }
-
-
-        console.log("---------------")
+        // const outName = path.basename(file, ".in") + ".json";
+        const outName = file.replace(".in", ".out.json");
+        fs.writeFileSync(outName, JSON.stringify(log, null, 2));
     }
 }
 
-testParseTraceback();
+main();
