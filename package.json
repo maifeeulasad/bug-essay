@@ -32,7 +32,8 @@
     "package": "vsce package",
     "publish": "vsce publish",
     "download:antlr": "curl https://www.antlr.org/download/antlr-4.13.2-complete.jar --output antlr-4.13.2-complete.jar",
-    "generate:python": "java -jar tools/antlr-4.13.2-complete.jar src/grammar/python/PythonTracebackLexer.g4 src/grammar/python/PythonTracebackParser.g4 -Dlanguage=TypeScript"
+    "generate:python": "java -jar tools/antlr-4.13.2-complete.jar src/grammar/python/PythonTracebackLexer.g4 src/grammar/python/PythonTracebackParser.g4 -Dlanguage=TypeScript",
+    "test:python": "pnpm tsx src/parser.ts"
   },
   "keywords": [],
   "author": "Maifee Ul Asad<maifeeulasad@gmail.com>",
