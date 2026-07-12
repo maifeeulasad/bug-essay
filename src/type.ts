@@ -19,6 +19,13 @@ export interface TracebackChain {
 export interface TracebackBlock {
     frames: Frame[];
     exception: ExceptionInfo;
+    /**
+     * How this block relates to the block before it in the chain.
+     * Absent on the first block. (Extra field beyond your original shape,
+     * so you don't lose the "During handling..." / "...direct cause..."
+     * info — drop it in post-processing if you don't want it.)
+     */
+    causedBy?: ExceptionTransition;
 }
 
 export interface Frame {
