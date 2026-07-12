@@ -11,8 +11,6 @@ import { TransitionContext } from "./PythonTracebackParser.js";
 import { TracebackBlockContext } from "./PythonTracebackParser.js";
 import { TracebackHeaderContext } from "./PythonTracebackParser.js";
 import { FrameContext } from "./PythonTracebackParser.js";
-import { FunctionNameContext } from "./PythonTracebackParser.js";
-import { QualifiedNameContext } from "./PythonTracebackParser.js";
 import { SourceLineContext } from "./PythonTracebackParser.js";
 import { ExceptionLineContext } from "./PythonTracebackParser.js";
 
@@ -102,26 +100,6 @@ export default class PythonTracebackParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitFrame?: (ctx: FrameContext) => void;
-	/**
-	 * Enter a parse tree produced by `PythonTracebackParser.functionName`.
-	 * @param ctx the parse tree
-	 */
-	enterFunctionName?: (ctx: FunctionNameContext) => void;
-	/**
-	 * Exit a parse tree produced by `PythonTracebackParser.functionName`.
-	 * @param ctx the parse tree
-	 */
-	exitFunctionName?: (ctx: FunctionNameContext) => void;
-	/**
-	 * Enter a parse tree produced by `PythonTracebackParser.qualifiedName`.
-	 * @param ctx the parse tree
-	 */
-	enterQualifiedName?: (ctx: QualifiedNameContext) => void;
-	/**
-	 * Exit a parse tree produced by `PythonTracebackParser.qualifiedName`.
-	 * @param ctx the parse tree
-	 */
-	exitQualifiedName?: (ctx: QualifiedNameContext) => void;
 	/**
 	 * Enter a parse tree produced by `PythonTracebackParser.sourceLine`.
 	 * @param ctx the parse tree
