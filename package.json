@@ -15,14 +15,14 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:bug-essay.hello"
+    "onCommand:bug-essay.visualizeStackTrace"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "bug-essay.hello",
-        "title": "Bug Essay: Hello"
+        "command": "bug-essay.visualizeStackTrace",
+        "title": "Bug Essay: Visualize Stack Trace"
       }
     ]
   },
