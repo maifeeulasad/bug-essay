@@ -21,10 +21,10 @@ export interface ParseResult extends PythonLog {
     errors: string[];
 }
 
-class CollectingErrorListener extends antlr4.error.ErrorListener {
+class CollectingErrorListener extends ErrorListener<unknown> {
     public errors: string[] = [];
 
-    syntaxError(
+    override syntaxError(
         _recognizer: unknown,
         _offendingSymbol: unknown,
         line: number,
