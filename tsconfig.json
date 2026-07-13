@@ -9,6 +9,10 @@
         "rootDir": "src",
         "outDir": "out",
         "strict": true,
+        "types": [
+            "node",
+            "vscode"
+        ],
         "sourceMap": true,
         "esModuleInterop": true
     },
