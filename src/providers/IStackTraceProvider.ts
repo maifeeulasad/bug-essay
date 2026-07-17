@@ -12,6 +12,8 @@ export interface StackTraceRecord {
     readonly language: string;
     /** The raw, unparsed traceback text. */
     readonly rawText: string;
+    /** ISO 8601 capture time, when the source records one. */
+    readonly timestamp?: string;
 }
 
 /**
