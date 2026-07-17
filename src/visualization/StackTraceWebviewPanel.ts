@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import type { ParsedStackTrace } from "../services/StackTraceService";
+import { createNonce } from "./html";
 import { StackTraceHtmlRenderer } from "./StackTraceHtmlRenderer";
 
 /** Message sent from the webview when the user clicks a frame. */
@@ -93,7 +94,7 @@ export class StackTraceWebviewPanel {
 
     /** Wraps rendered body markup in a full, CSP-protected HTML document. */
     private buildDocument(body: string): string {
-        const nonce = StackTraceWebviewPanel.createNonce();
+        const nonce = createNonce();
         const csp = `default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';`;
 
         return `<!DOCTYPE html>
@@ -148,6 +149,7 @@ export class StackTraceWebviewPanel {
     }
     .frame:hover { background: var(--vscode-list-hoverBackground); }
     .frame.crash-site { background: var(--vscode-inputValidation-errorBackground); }
+    .frame.active-frame { outline: 1px solid var(--vscode-focusBorder); }
 
     .frame-function {
         font-family: var(--vscode-editor-font-family);
@@ -196,8 +198,4 @@ ${body}
 </html>`;
     }
 
-    private static createNonce(): string {
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        return Array.from({ length: 32 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
-    }
 }
