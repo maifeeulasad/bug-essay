@@ -150,3 +150,7 @@ out
 
 # Antlr
 tools/antlr-4.13.2-complete.jar
+
+# Python
+__pycache__/
+*.pyc
