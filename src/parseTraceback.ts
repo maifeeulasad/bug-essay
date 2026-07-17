@@ -96,6 +96,25 @@ function buildChainEntry(chainCtx: any): LogEntry {
     return { kind: "traceback", blocks };
 }
 
+/**
+ * Retypes indented EXCEPTION_LINE tokens to TEXT.
+ *
+ * Python prints exception lines at column 0; an indented line that looks
+ * like one (e.g. the frame source "lambda: do_something()") is really
+ * frame source text, and letting it stand would terminate the traceback
+ * block early. The .g4 lexer no longer matches leading whitespace, but the
+ * checked-in generated lexer predates that fix, so compensate here until
+ * `pnpm generate:python` is re-run (needs java).
+ */
+function retypeIndentedExceptionLines(tokenStream: any): void {
+    tokenStream.fill();
+    for (const token of tokenStream.tokens) {
+        if (token.type === PythonTracebackLexer.EXCEPTION_LINE && /^[ \t]/.test(token.text ?? "")) {
+            token.type = PythonTracebackLexer.TEXT;
+        }
+    }
+}
+
 /** Parses raw traceback log text into structured JSON matching PythonLog. */
 export function parseTraceback(text: string): ParseResult {
     const chars = new antlr4.InputStream(text);
@@ -110,6 +129,7 @@ export function parseTraceback(text: string): ParseResult {
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
 
+    retypeIndentedExceptionLines(tokenStream);
     const tree: any = parser.log();
 
     const entries: LogEntry[] = [];
