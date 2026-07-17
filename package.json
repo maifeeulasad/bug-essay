@@ -15,7 +15,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:bug-essay.visualizeStackTrace"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -23,8 +23,116 @@
       {
         "command": "bug-essay.visualizeStackTrace",
         "title": "Bug Essay: Visualize Stack Trace"
+      },
+      {
+        "command": "bug-essay.refreshTraces",
+        "title": "Bug Essay: Refresh Stack Traces",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "bug-essay.nextFrame",
+        "title": "Bug Essay: Next Frame",
+        "icon": "$(chevron-down)"
+      },
+      {
+        "command": "bug-essay.previousFrame",
+        "title": "Bug Essay: Previous Frame",
+        "icon": "$(chevron-up)"
+      },
+      {
+        "command": "bug-essay.navigateBack",
+        "title": "Bug Essay: Navigate Back",
+        "icon": "$(arrow-left)"
+      },
+      {
+        "command": "bug-essay.navigateForward",
+        "title": "Bug Essay: Navigate Forward",
+        "icon": "$(arrow-right)"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bugEssay",
+          "title": "Bug Essay",
+          "icon": "media/bug-essay.svg"
+        }
+      ]
+    },
+    "views": {
+      "bugEssay": [
+        {
+          "type": "webview",
+          "id": "bugEssay.stackTraceView",
+          "name": "Stack Traces"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "bug-essay.refreshTraces",
+          "when": "view == bugEssay.stackTraceView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "bug-essay.navigateBack",
+          "when": "view == bugEssay.stackTraceView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "bug-essay.navigateForward",
+          "when": "view == bugEssay.stackTraceView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "bug-essay.previousFrame",
+          "when": "view == bugEssay.stackTraceView",
+          "group": "navigation@4"
+        },
+        {
+          "command": "bug-essay.nextFrame",
+          "when": "view == bugEssay.stackTraceView",
+          "group": "navigation@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Bug Essay",
+      "properties": {
+        "bugEssay.mongo.uri": {
+          "type": "string",
+          "default": "mongodb://localhost:27017",
+          "description": "MongoDB connection string used to pull captured exceptions."
+        },
+        "bugEssay.mongo.database": {
+          "type": "string",
+          "default": "bug_essay",
+          "description": "Database holding the exceptions collection."
+        },
+        "bugEssay.mongo.collection": {
+          "type": "string",
+          "default": "exceptions",
+          "description": "Collection the exception logger writes into."
+        },
+        "bugEssay.polling.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Periodically pull new exceptions from MongoDB."
+        },
+        "bugEssay.polling.intervalSeconds": {
+          "type": "number",
+          "default": 10,
+          "minimum": 2,
+          "description": "Seconds between polls."
+        },
+        "bugEssay.maxTraces": {
+          "type": "number",
+          "default": 200,
+          "description": "Maximum number of stack traces kept in memory."
+        }
+      }
+    }
   },
   "scripts": {
     "build": "tsc -p .",
@@ -49,6 +157,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "antlr4": "^4.13.2"
+    "antlr4": "^4.13.2",
+    "mongodb": "^7.5.0"
   }
 }
