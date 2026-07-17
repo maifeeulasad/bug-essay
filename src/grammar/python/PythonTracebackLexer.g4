@@ -25,8 +25,12 @@ FRAME_LINE
 // An exception type (optionally "Type: message"), e.g.
 // "ValueError: bad input" or "urllib.error.HTTPError: HTTP Error 400: ".
 // Same trick: matches to end of line so it ties with, and beats, TEXT.
+// NOTE: no leading whitespace on purpose. Python prints exception lines
+// at column 0; indented lines that merely look like one (e.g. the frame
+// source "lambda: do_something()") must stay TEXT or they terminate the
+// traceback block early.
 EXCEPTION_LINE
-    : [ \t]* [a-zA-Z_][a-zA-Z0-9_]* ('.' [a-zA-Z_][a-zA-Z0-9_]*)* (': ' ~[\r\n]*)?
+    : [a-zA-Z_][a-zA-Z0-9_]* ('.' [a-zA-Z_][a-zA-Z0-9_]*)* (': ' ~[\r\n]*)?
     ;
 
 // Catch-all for plain output lines and frame source/caret lines.
